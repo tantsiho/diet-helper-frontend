@@ -90,12 +90,7 @@
                 // *** IMPORTANT: Please replace this placeholder URL with your actual Render service URL ***
                 const backendApiUrl = "https://diet-decision-backend.onrender.com/get-recommendation";
 
-                if (backendApiUrl === "https://diet-decision-backend.onrender.com/get-recommendation") {
-                    console.error('錯誤：請將 backendApiUrl 替換為您實際的 Render 後端服務網址。');
-                    showMessage('錯誤：請在程式碼中設定您的 Render 後端網址！');
-                    return; // 終止函式執行
-                }
-
+            
                 const response = await fetch(backendApiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
