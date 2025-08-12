@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>飲食決策助手 | Diet Decision Helper</title>
-    <!-- 引入 Tailwind CSS 實現現代化且乾淨的設計 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -56,7 +55,7 @@
     </div>
 
     <script>
-        // 用於顯示自訂訊息框的函式
+        // Function to show a custom message box
         function showMessage(text) {
             const messageBox = document.getElementById('messageBox');
             const messageText = document.getElementById('messageText');
@@ -68,27 +67,15 @@
             document.getElementById('messageBox').classList.add('hidden');
         });
 
-        // 處理 API 呼叫的函式
+        // Function to handle the API call
         async function getRecommendation(isHungry) {
-            // Log for traffic observation: A button has been clicked.
-            console.log('--- 飲食決策助手: 開始處理請求 ---');
-
-            // IMPORTANT: 將這裡的 URL 替換成您在 Render 或 Vercel 部署後的網址！
-            // IMPORTANT: Replace this URL with the actual URL of your backend service on Render or Vercel!
-            const backendUrl = "YOUR_BACKEND_URL";
-
-            if (backendUrl === "YOUR_BACKEND_URL") {
-                showMessage("教練說：你沒有給我後端網址，怎麼訓練？請先在程式碼中填入網址！");
-                console.error("錯誤: backendUrl 尚未設定!"); // Log the error to the console
-                return;
-            }
-
             const loadingIndicator = document.getElementById('loadingIndicator');
             const resultContainer = document.getElementById('resultContainer');
             const recommendationEl = document.getElementById('recommendation');
             const hungryBtn = document.getElementById('hungryBtn');
             const notHungryBtn = document.getElementById('notHungryBtn');
 
+            // Hide result, show loading spinner, and disable buttons
             resultContainer.classList.add('hidden');
             loadingIndicator.classList.remove('hidden');
             hungryBtn.disabled = true;
@@ -98,19 +85,22 @@
             const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
             const hungerState = isHungry ? '是' : '否';
 
-            // 記錄要發送到後端的資料
-            console.log(`按鈕點擊狀態: isHungry=${isHungry}`);
-            console.log(`傳送至後端的資料: { currentTime: '${currentTime}', isHungry: '${hungerState}' }`);
-
             try {
-                const response = await fetch(backendUrl, {
+                // *** 重要：請將此處的佔位符網址替換為你實際的 Render 服務網址 ***
+                // *** IMPORTANT: Please replace this placeholder URL with your actual Render service URL ***
+                const backendApiUrl = "https://diet-decision-backend.onrender.com";
+
+                if (backendApiUrl === "https://diet-decision-backend.onrender.com") {
+                    console.error('錯誤：請將 backendApiUrl 替換為您實際的 Render 後端服務網址。');
+                    showMessage('錯誤：請在程式碼中設定您的 Render 後端網址！');
+                    return; // 終止函式執行
+                }
+
+                const response = await fetch(backendApiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ currentTime, isHungry: hungerState })
                 });
-
-                // 記錄後端的回應狀態
-                console.log(`後端回應狀態: ${response.status}`);
 
                 if (!response.ok) {
                     throw new Error('教練的回應出錯了！你的網路線是不是斷了？');
@@ -118,9 +108,6 @@
 
                 const result = await response.json();
                 
-                // 記錄從後端接收到的結果
-                console.log('從後端接收到的結果:', result);
-
                 if (result.text) {
                     recommendationEl.innerHTML = marked.parse(result.text);
                 } else {
@@ -131,8 +118,7 @@
                 showMessage('教練的麥克風好像壞了，請稍後再試。');
                 recommendationEl.innerHTML = '<p>教練不在線上，請檢查你的網路線或休息一下。</p>';
             } finally {
-                // 記錄請求處理結束
-                console.log('--- 飲食決策助手: 請求處理結束 ---');
+                // Hide loading spinner and enable button whether successful or not
                 loadingIndicator.classList.add('hidden');
                 hungryBtn.disabled = false;
                 notHungryBtn.disabled = false;
@@ -140,12 +126,12 @@
             }
         }
 
+        // Event listeners for the buttons
         document.getElementById('hungryBtn').addEventListener('click', () => getRecommendation(true));
         document.getElementById('notHungryBtn').addEventListener('click', () => getRecommendation(false));
     </script>
-    <!-- 載入 marked.js 以支援 Markdown 格式 -->
+    <!-- Load marked.js to support Markdown formatting -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 </body>
 </html>
-
