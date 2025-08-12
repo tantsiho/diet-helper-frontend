@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>飲食決策教練 | Diet Decision Helper</title>
+    <!-- 引入 Tailwind CSS 框架，用於快速美化網頁介面 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -15,42 +16,68 @@
 </head>
 <body class="p-4 sm:p-8 bg-gray-100 flex items-center justify-center min-h-screen">
 
-    <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-xl max-w-lg w-full transition-all duration-300">
-        <h1 class="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-2">飲食決策教練</h1>
-        <h2 class="text-xl sm:text-2xl font-semibold text-center text-gray-600 mb-6">Diet Decision Helper</h2>
-        <p class="text-center text-gray-600 mb-8">
-            <span class="font-bold text-red-500">教練在此！</span> 點擊按鈕，給我一個你吃東西的理由！
-            <br class="hidden sm:block">
-            (Coach here! Click the button and give me a reason for your laziness!)
-        </p>
+    <!-- 主容器，用於放置應用程式和廣告欄位 -->
+    <!-- 使用 flexbox 佈局，在桌面端左右並排，行動端上下堆疊 -->
+    <div class="flex flex-col lg:flex-row w-full max-w-7xl gap-6">
 
-        <div class="flex flex-col sm:flex-row gap-4 mb-8">
-            <button id="hungryBtn" class="w-full px-6 py-4 bg-red-600 text-white font-semibold rounded-xl shadow-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200 ease-in-out transform hover:scale-105">
-                我餓了！(I'm hungry!)
-            </button>
-            <button id="notHungryBtn" class="w-full px-6 py-4 bg-red-500 text-white font-semibold rounded-xl shadow-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200 ease-in-out transform hover:scale-105">
-                我不餓！(I'm not hungry!)
-            </button>
-        </div>
+        <!-- 左側主應用程式區塊 -->
+        <main class="flex-1 bg-white p-6 sm:p-8 rounded-2xl shadow-xl transition-all duration-300">
+            <h1 class="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-2">飲食決策教練</h1>
+            <h2 class="text-xl sm:text-2xl font-semibold text-center text-gray-600 mb-6">Diet Decision Helper</h2>
+            <p class="text-center text-gray-600 mb-8">
+                <span class="font-bold text-red-500">教練在此！</span> 點擊按鈕，給我一個你偷懶的理由！
+                <br class="hidden sm:block">
+                (Coach here! Click the button and give me a reason for your laziness!)
+            </p>
 
-        <div id="resultContainer" class="mt-8 p-6 bg-red-50 rounded-xl border-2 border-red-200 hidden">
-            <h3 class="text-xl font-bold text-gray-800 mb-3">教練的建議： (Coach's Recommendation)</h3>
-            <div id="recommendation" class="text-gray-700 mt-2 prose max-w-none"></div>
-        </div>
-
-        <div id="messageBox" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
-            <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm text-center">
-                <p id="messageText" class="text-lg font-semibold text-gray-800"></p>
-                <button id="closeMessageBtn" class="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">確定</button>
+            <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                <button id="hungryBtn" class="w-full px-6 py-4 bg-red-600 text-white font-semibold rounded-xl shadow-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200 ease-in-out transform hover:scale-105">
+                    我餓了！(I'm hungry!)
+                </button>
+                <button id="notHungryBtn" class="w-full px-6 py-4 bg-red-500 text-white font-semibold rounded-xl shadow-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200 ease-in-out transform hover:scale-105">
+                    我不餓！(I'm not hungry!)
+                </button>
             </div>
-        </div>
 
-        <div id="loadingIndicator" class="mt-8 text-center hidden">
-            <svg class="animate-spin h-8 w-8 text-red-600 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            <p class="mt-2 text-gray-500">教練正在給你安排課表... (Coach is arranging your schedule...)</p>
+            <div id="resultContainer" class="mt-8 p-6 bg-red-50 rounded-xl border-2 border-red-200 hidden">
+                <h3 class="text-xl font-bold text-gray-800 mb-3">教練的建議： (Coach's Recommendation)</h3>
+                <div id="recommendation" class="text-gray-700 mt-2 prose max-w-none"></div>
+            </div>
+
+            <div id="loadingIndicator" class="mt-8 text-center hidden">
+                <svg class="animate-spin h-8 w-8 text-red-600 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <p class="mt-2 text-gray-500">教練正在給你安排課表... (Coach is arranging your schedule...)</p>
+            </div>
+        </main>
+
+        <!-- 新增的右側 Google AdSense 廣告欄位 -->
+        <aside class="w-full lg:w-80 bg-white rounded-xl shadow-lg p-6 flex flex-col items-center justify-center">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">贊助廣告</h2>
+            <!-- Google AdSense 廣告程式碼 -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6758951476446804"
+                 crossorigin="anonymous"></script>
+            <!-- 管住嘴 -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-6758951476446804"
+                 data-ad-slot="5800078781"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </aside>
+
+    </div>
+
+    <!-- 自定義訊息框 -->
+    <div id="messageBox" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm text-center">
+            <p id="messageText" class="text-lg font-semibold text-gray-800"></p>
+            <button id="closeMessageBtn" class="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">確定</button>
         </div>
     </div>
 
@@ -90,7 +117,6 @@
                 // *** IMPORTANT: Please replace this placeholder URL with your actual Render service URL ***
                 const backendApiUrl = "https://diet-decision-backend.onrender.com/get-recommendation";
 
-            
                 const response = await fetch(backendApiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
