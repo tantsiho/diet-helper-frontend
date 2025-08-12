@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>飲食決策助手 | Diet Decision Helper</title>
+    <title>飲食決策教練 | Diet Decision Helper</title>
     <!-- 引入 Tailwind CSS 框架，用於快速美化網頁介面 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -22,10 +22,10 @@
 
         <!-- 左側主應用程式區塊 -->
         <main class="flex-1 bg-white p-6 sm:p-8 rounded-2xl shadow-xl transition-all duration-300">
-            <h1 class="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-2">飲食決策助手</h1>
+            <h1 class="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-2">飲食決策教練</h1>
             <h2 class="text-xl sm:text-2xl font-semibold text-center text-gray-600 mb-6">Diet Decision Helper</h2>
             <p class="text-center text-gray-600 mb-8">
-                <span class="font-bold text-red-500">教練在此！</span> 點擊按鈕，給我一個你偷懶的理由！
+                <span class="font-bold text-red-500">教練在此！</span> 點擊按鈕，給我一個你吃東西的理由！
                 <br class="hidden sm:block">
                 (Coach here! Click the button and give me a reason for your laziness!)
             </p>
@@ -146,7 +146,7 @@
                 }
             } catch (error) {
                 console.error('API 呼叫失敗:', error);
-                showMessage('教練的麥克風好像壞了，請稍後再試。');
+                showMessage('教練的大聲公好像壞了，請稍後再試。');
                 recommendationEl.innerHTML = '<p>教練不在線上，請檢查你的網路線或休息一下。</p>';
             } finally {
                 // Hide loading spinner and enable button whether successful or not
