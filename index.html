@@ -7,7 +7,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
     </style>
 </head>
 <body class="p-4 sm:p-8 bg-gray-100 flex items-center justify-center min-h-screen">
@@ -101,13 +104,7 @@
             };
         }
 
-        // 保險：避免雙送請求
-        let inflight = false;
-
         async function getRecommendation(isHungry) {
-            if (inflight) return;
-            inflight = true;
-
             const loadingIndicator = document.getElementById('loadingIndicator');
             const resultContainer = document.getElementById('resultContainer');
             const recommendationEl = document.getElementById('recommendation');
@@ -121,12 +118,10 @@
 
             const now = new Date();
             const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-            // ✅ 改傳布林值
-            const hungerState = !!isHungry;
+            const hungerState = isHungry ? '是' : '否';
 
             try {
-                // ✅ 改呼叫根路徑 '/'
-                const backendApiUrl = "https://diet-decision-backend.onrender.com/";
+                const backendApiUrl = "https://diet-decision-backend.onrender.com/get-recommendation";
                 const response = await fetch(backendApiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -144,7 +139,6 @@
                 showMessage('教練的大聲公好像壞了，請稍後再試。');
                 recommendationEl.innerHTML = '<p>教練不在線上。</p>';
             } finally {
-                inflight = false;
                 loadingIndicator.classList.add('hidden');
                 hungryBtn.disabled = false;
                 notHungryBtn.disabled = false;
@@ -152,7 +146,7 @@
             }
         }
 
-        const debouncedGetRecommendation = debounce(getRecommendation, 300);
+        const debouncedGetRecommendation = debounce(getRecommendation, 500);
         document.getElementById('hungryBtn').addEventListener('click', () => debouncedGetRecommendation(true));
         document.getElementById('notHungryBtn').addEventListener('click', () => debouncedGetRecommendation(false));
     </script>
