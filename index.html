@@ -16,7 +16,7 @@
 </head>
 <body class="p-4 sm:p-8 bg-gray-100 flex items-center justify-center min-h-screen">
 
-    <!-- 主容器，用於放置應用程式和 Threads 區塊 -->
+    <!-- 主容器，用於放置應用程式和廣告欄位 -->
     <!-- 使用 flexbox 佈局，在桌面端左右並排，行動端上下堆疊 -->
     <div class="flex flex-col lg:flex-row w-full max-w-7xl gap-6">
 
@@ -53,17 +53,26 @@
             </div>
         </main>
 
-        <!-- 新增的右側圖片區塊 -->
-        <aside class="w-full lg:w-80 bg-white rounded-xl shadow-lg p-6 flex flex-col items-center">
-            <h2 class="text-xl font-bold text-gray-800 mb-4 text-center">贊助廣告</h2>
-            <!-- 圖片連結到你提供的網址 -->
-            <a href="https://www.instagram.com/chairsavior/" target="_blank">
-                <img src="https://instagram.ftpe11-1.fna.fbcdn.net/v/t51.2885-15/504293270_17913815877115548_4860294181301636941_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTQ0MHgxOTIwLnNkci5mODI3ODcuZGVmYXVsdF9pbWFnZS5jMiJ9&_nc_ht=instagram.ftpe11-1.fna.fbcdn.net&_nc_cat=100&_nc_oc=Q6cZ2QHFhKqxa0XH3m1x8Lq5rhkaqgRX3ike2Yni3f0XwTq8v3ehgTUKTA5ygbSowN0Ooeh3sUgz8uO11Rms7_dhPPcV&_nc_ohc=hl4e-RcBcYsQ7kNvwGUQGRV&_nc_gid=JMsxOowGMoS-05uU7Bx3aw&edm=AEnw0QABAAAA&ccb=7-5&ig_cache_key=MzY2Njg1MjU4NjUyMTAzNzkyNA%3D%3D.3-ccb7-5&oh=00_AfUjhnLKHjLGpo2ElKmSDPgxTXdNWZ6KQ0jYG6zPBXm1hw&oe=68A7E53E&_nc_sid=9705cc" alt="椅子救星" class="w-full h-auto rounded-lg shadow-md hover:scale-105 transition-transform duration-200">
-            </a>
+        <!-- 新增的右側 Google AdSense 廣告欄位 -->
+        <aside class="w-full lg:w-80 bg-white rounded-xl shadow-lg p-6 flex flex-col items-center justify-center">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">贊助廣告</h2>
+            <!-- Google AdSense 廣告程式碼 -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6758951476446804"
+                 crossorigin="anonymous"></script>
+            <!-- 管住嘴 -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-6758951476446804"
+                 data-ad-slot="5800078781"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </aside>
 
     </div>
-    
+
     <!-- 自定義訊息框 -->
     <div id="messageBox" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
         <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm text-center">
@@ -157,5 +166,6 @@
     </script>
     <!-- Load marked.js to support Markdown formatting -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
 </body>
 </html>
