@@ -16,8 +16,7 @@
 </head>
 <body class="p-4 sm:p-8 bg-gray-100 flex items-center justify-center min-h-screen">
 
-    <!-- 主容器，用於放置應用程式和廣告欄位 -->
-    <!-- 使用 flexbox 佈局，在桌面端左右並排，行動端上下堆疊 -->
+    <!-- 主容器，用於放置應用程式和（原側欄現改為 Threads 內嵌） -->
     <div class="flex flex-col lg:flex-row w-full max-w-7xl gap-6">
 
         <!-- 左側主應用程式區塊 -->
@@ -53,119 +52,14 @@
             </div>
         </main>
 
-        <!-- 新增的右側 Google AdSense 廣告欄位 -->
+        <!-- 右側：改為 Threads 內嵌 -->
         <aside class="w-full lg:w-80 bg-white rounded-xl shadow-lg p-6 flex flex-col items-center justify-center">
-            <h2 class="text-xl font-bold text-gray-800 mb-4">贊助廣告</h2>
-            <!-- Google AdSense 廣告程式碼 -->
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6758951476446804"
-                 crossorigin="anonymous"></script>
-            <!-- 管住嘴 -->
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-6758951476446804"
-                 data-ad-slot="5800078781"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </aside>
+            <h2 class="text-xl font-bold text-gray-800 mb-4">社群貼文</h2>
 
-    </div>
-
-    <!-- 自定義訊息框 -->
-    <div id="messageBox" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
-        <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm text-center">
-            <p id="messageText" class="text-lg font-semibold text-gray-800"></p>
-            <button id="closeMessageBtn" class="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">確定</button>
-        </div>
-    </div>
-
-    <script>
-        // Function to show a custom message box
-        function showMessage(text) {
-            const messageBox = document.getElementById('messageBox');
-            const messageText = document.getElementById('messageText');
-            messageText.textContent = text;
-            messageBox.classList.remove('hidden');
-        }
-
-        document.getElementById('closeMessageBtn').addEventListener('click', function() {
-            document.getElementById('messageBox').classList.add('hidden');
-        });
-
-        // 幫按鈕加上防抖函式
-        function debounce(func, wait) {
-            let timeout;
-            return function(...args) {
-                const context = this;
-                clearTimeout(timeout);
-                timeout = setTimeout(() => func.apply(context, args), wait);
-            };
-        }
-
-        // Function to handle the API call
-        async function getRecommendation(isHungry) {
-            const loadingIndicator = document.getElementById('loadingIndicator');
-            const resultContainer = document.getElementById('resultContainer');
-            const recommendationEl = document.getElementById('recommendation');
-            const hungryBtn = document.getElementById('hungryBtn');
-            const notHungryBtn = document.getElementById('notHungryBtn');
-
-            // Hide result, show loading spinner, and disable buttons
-            resultContainer.classList.add('hidden');
-            loadingIndicator.classList.remove('hidden');
-            hungryBtn.disabled = true;
-            notHungryBtn.disabled = true;
-
-            const now = new Date();
-            const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-            const hungerState = isHungry ? '是' : '否';
-
-            try {
-                // *** 重要：請將此處的佔位符網址替換為你實際的 Render 服務網址 ***
-                // *** IMPORTANT: Please replace this placeholder URL with your actual Render service URL ***
-                const backendApiUrl = "https://diet-decision-backend.onrender.com/get-recommendation";
-
-                const response = await fetch(backendApiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ currentTime, isHungry: hungerState })
-                });
-
-                if (!response.ok) {
-                    throw new Error('教練的回應出錯了！你的網路線是不是斷了？');
-                }
-
-                const result = await response.json();
-                
-                if (result.text) {
-                    recommendationEl.innerHTML = marked.parse(result.text);
-                } else {
-                    throw new Error('教練的回應結構不正確！可能是他去喝水了。');
-                }
-            } catch (error) {
-                console.error('API 呼叫失敗:', error);
-                showMessage('教練的大聲公好像壞了，請稍後再試。');
-                recommendationEl.innerHTML = '<p>教練不在線上，請檢查你的網路線或休息一下。</p>';
-            } finally {
-                // Hide loading spinner and enable button whether successful or not
-                loadingIndicator.classList.add('hidden');
-                hungryBtn.disabled = false;
-                notHungryBtn.disabled = false;
-                resultContainer.classList.remove('hidden');
-            }
-        }
-
-        // Event listeners for the buttons
-        // 使用防抖函式來包裝 API 呼叫
-        const debouncedGetRecommendation = debounce(getRecommendation, 500);
-
-        document.getElementById('hungryBtn').addEventListener('click', () => debouncedGetRecommendation(true));
-        document.getElementById('notHungryBtn').addEventListener('click', () => debouncedGetRecommendation(false));
-    </script>
-    <!-- Load marked.js to support Markdown formatting -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-</body>
-</html>
+            <!-- Threads 內嵌（你提供的代碼，略調整外層寬度為 100% 以適配側欄） -->
+            <blockquote class="text-post-media" data-text-post-permalink="https://www.threads.com/@melocore/post/DLjRfpYTlV4" data-text-post-version="0" id="ig-tp-DLjRfpYTlV4" style=" background:#FFF; border-width: 1px; border-style: solid; border-color: #00000026; border-radius: 16px; max-width:540px; margin: 1px; min-width:270px; padding:0; width:100%;">
+                <a href="https://www.threads.com/@melocore/post/DLjRfpYTlV4" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%; font-family: -apple-system, BlinkMacSystemFont, sans-serif;" target="_blank">
+                    <div style=" padding: 40px; display: flex; flex-direction: column; align-items: center;">
+                        <div style=" display:block; height:32px; width:32px; padding-bottom:20px;">
+                            <svg aria-label="Threads" height="32px" role="img" viewBox="0 0 192 192" width="32px" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M141.537 88.9883C140.71 88.5919 139.87 88.2104 139.019 87.8451C137.537 60.5382 122.616 44.905 97.5619 44.745C97.4484 44.7443 97.3355 44.7443 97.222 44.7443C82.2364 44.7443 69.7731 51.1409 62.102 62.7807L75.881 72.2328C81.6116 63.5383 90.6052 61.6848 97.2286 61.6848C97.3051 61.6848 97.3819 61.6848 97.4576 61.6855C105.707 61.7381 111.932 64.1366 115.961 68.814C118.893 72.2193 120.854 76.925 121.825 82.8638C114.511 81.6207 106.601 81.2385 98.145 81.7233C74.3247 83.0954 59.0111 96.9879 60.0396 116.292C60.5615 126.084 65.4397 134.508 73.775 140.011C80.8224 144.663 89.899 146.938 99.3323 146.423C111.79 145.74 121.563 140.987 128.381 132.296C133.559 125.696 136.834 117.143 138.28 106.366C144.217 109.949 148.617 114.664 151.047 120.332C155.179 129.967 155.42 145.8 142.501 158.708C131.182 170.016 117.576 174.908 97.0135 175.059C74.2042 174.89 56.9538 167.575 45.7381 153.317C35.2355 139.966 29.8077 120.682 29.6052 96C29.8077 71.3178 35.2355 52.0336 45.7381 38.6827C56.9538 24.4249 74.2039 17.11 97.0132 16.9405C119.988 17.1113 137.539 24.4614 149.184 38.788C154.894 45.8136 159.199 54.6488 162.037 64.9503L178.184 60.6422C174.744 47.9622
